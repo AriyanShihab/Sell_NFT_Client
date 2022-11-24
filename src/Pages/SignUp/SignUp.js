@@ -1,11 +1,15 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import bg from "../../Assets/bannerBG.webp";
+import SmallSpinner from "../../Components/Loader/SmallSpinner";
 import { UserContext } from "../../Context/Auth/AuthContext";
 
 const SignUp = () => {
   const { createUser, updateUser } = useContext(UserContext);
+  const [signupLoader, setSignUpLoader] = useState(false);
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -16,29 +20,80 @@ const SignUp = () => {
   const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMG_BB_KEY}`;
 
   const handelSignUp = (data) => {
-    console.log(data);
-    createUser(data.email, data.password).then((result) => {
-      const user = result.user;
-      const formData = new FormData();
-      const profilePicture = data.profileImage[0];
-      formData.append("image", profilePicture);
-      fetch(url, {
-        method: "POST",
-        body: formData,
+    setSignUpLoader(true);
+    createUser(data.email, data.password)
+      .then((result) => {
+        const formData = new FormData();
+        const profilePicture = data.profileImage[0];
+        formData.append("image", profilePicture);
+        fetch(url, {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.json())
+          .then((imgData) => {
+            if (imgData.success) {
+              const userInfo = {
+                displayName: data.name,
+                photoURL: imgData.data.url,
+              };
+              updateUser(userInfo)
+                .then(() => {
+                  const userForDb = {
+                    name: data.name,
+                    email: data.email,
+                    photoURL: imgData.data.url,
+                    role: data.signUpAs,
+                    isVerified: false,
+                  };
+                  fetch(`http://localhost:5000/users`, {
+                    method: "POST",
+                    headers: {
+                      "content-type": "application/json",
+                    },
+                    body: JSON.stringify(userForDb),
+                  })
+                    .then((res) => res.json())
+                    .then((userData) => {
+                      if (userData.acknowledged) {
+                        getToken(userForDb.email);
+                      }
+                    })
+                    .catch((err) => {
+                      toast.error(err.message);
+                      setSignUpLoader(false);
+                    });
+
+                  setSignUpLoader(false);
+                })
+                .catch((err) => {
+                  toast.error(err.message);
+                  setSignUpLoader(false);
+                });
+            }
+          })
+          .catch((err) => {
+            toast.error(err.message);
+            setSignUpLoader(false);
+          });
       })
-        .then((res) => res.json())
-        .then((imgData) => {
-          if (imgData.success) {
-            const userInfo = {
-              displayName: data.name,
-              photoURL: imgData.data.url,
-            };
-            updateUser(userInfo).then(() => {
-              console.log(" Updated User");
-            });
-          }
-        });
-    });
+      .catch((err) => {
+        toast.error(err.message);
+        setSignUpLoader(false);
+      });
+  };
+
+  const getToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((tokenData) => {
+        if (tokenData.accessToken) {
+          localStorage.setItem("NFT_Token", tokenData.accessToken);
+          toast.success("user created successfully");
+          navigate("/");
+          setSignUpLoader(false);
+        }
+      });
   };
   return (
     <div
@@ -109,7 +164,7 @@ const SignUp = () => {
             Signup as a (by deafult you will signup as buyer, if you want to
             sell your NFT, select seller from option bellow)
             <select
-              {...register("signupAs")}
+              {...register("signUpAs")}
               className="p-3 rounded w-full text-slate-200 bg-slate-800 border border-slate-200 border-opacity-20"
             >
               <option value="buyer">Buyer</option>
@@ -127,11 +182,12 @@ const SignUp = () => {
           </p>
         </div>
         <div>
-          <input
-            className="  ml-0 myBtn w-full cursor-pointer"
+          <button
+            className="  ml-0 myBtn w-full cursor-pointer text-center"
             type="submit"
-            value={"Sign Up"}
-          />
+          >
+            {signupLoader ? <SmallSpinner></SmallSpinner> : "Sign Up"}
+          </button>
         </div>
         <div>
           <button className="  ml-0 myBtn w-full">Sign Up with Google</button>
