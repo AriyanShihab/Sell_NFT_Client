@@ -62,3 +62,7 @@ code {
 .grText {
   @apply text-4xl md:text-7xl font-bold  bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500;
 }
+
+.dashboard-menu li a {
+  background-color: transparent !important;
+}
