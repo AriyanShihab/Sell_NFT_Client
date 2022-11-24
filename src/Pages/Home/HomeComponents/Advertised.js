@@ -12,7 +12,6 @@ const Advertised = () => {
       return data;
     },
   });
-  console.log(products);
 
   if (isLoading) {
     return <Loading></Loading>;

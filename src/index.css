@@ -55,3 +55,10 @@ code {
 .coustomScroll::-webkit-scrollbar-thumb:hover {
   background: #a0aec0;
 }
+
+.myBtn {
+  @apply px-4 py-3 rounded bg-gradient-to-l from-blue-500 to-cyan-500 font-bold text-xl text-slate-900 ml-2;
+}
+.grText {
+  @apply text-4xl md:text-7xl font-bold  bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500;
+}

@@ -8,7 +8,7 @@ import router from "./Routes/Router";
 function App() {
   const queryClient = new QueryClient();
   return (
-    <div>
+    <div className="bg-slate-900">
       <QueryClientProvider client={queryClient}>
         <RouterProvider router={router}></RouterProvider>
       </QueryClientProvider>

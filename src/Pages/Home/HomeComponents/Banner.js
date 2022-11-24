@@ -9,9 +9,7 @@ const Banner = () => {
       style={{ backgroundImage: `url(${bannerBg})`, backgroundSize: "cover" }}
     >
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-4xl md:text-7xl font-bold  bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-cyan-500">
-          Next Genaration of NFT
-        </h2>
+        <h2 className="grText">Next Genaration of NFT</h2>
         <p className="text-indigo-300 text-xl mt-4">
           Buy and Sell The feture products of the world
         </p>
