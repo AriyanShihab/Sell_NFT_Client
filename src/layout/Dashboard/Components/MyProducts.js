@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 
 import { useQuery } from "@tanstack/react-query";
+import { toast } from "react-toastify";
 import Loading from "../../../Components/Loader/Loading";
 import { UserContext } from "../../../Context/Auth/AuthContext";
 
 const MyProducts = () => {
-  const { user } = useContext(UserContext);
+  const { user, loading } = useContext(UserContext);
   const {
     data: products = [],
     isLoading,
@@ -21,19 +22,40 @@ const MyProducts = () => {
       return data;
     },
   });
-  if (isLoading) {
+  if (isLoading || loading) {
     return <Loading></Loading>;
   }
 
-  const handelAdd = (id) => {
-    fetch(``);
+  const handelAdvertised = (id) => {
+    fetch(`http://localhost:5000/makeAdvertised/${id}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.modifiedCount > 0) {
+          toast.success("Product Advertised Successfull");
+          refetch();
+        }
+      });
+  };
+
+  const handelDelte = (id) => {
+    fetch(`http://localhost:5000/delete-product/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          toast.info("Product Deleted Successfull");
+          refetch();
+        }
+      });
   };
 
   /**
    * On the "My Products" page, display sales status (available or sold), price, and any other relevant information you want to show. A seller will be able to delete any of his/her product. Please note there will be a special button for each unsold/available product where the seller can hit the button to advertise.
     
    */
-  console.log(products);
 
   console.log();
   return (
@@ -67,12 +89,17 @@ const MyProducts = () => {
                 </td>
                 <td>{product.sellingPrice}</td>
                 <td>
-                  <button className="btn btn-sm btn-warning">Delete</button>
+                  <button
+                    onClick={() => handelDelte(product._id)}
+                    className="btn btn-sm btn-warning"
+                  >
+                    Delete
+                  </button>
                 </td>
                 <td>
-                  {product.advertised && (
+                  {!product.advertised && product.available && (
                     <button
-                      onClick={() => handelAdd(product._id)}
+                      onClick={() => handelAdvertised(product._id)}
                       className="btn btn-sm btn-success"
                     >
                       Advertise

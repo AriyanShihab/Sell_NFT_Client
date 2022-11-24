@@ -32,6 +32,7 @@ const DashboardLayout = () => {
               <>
                 <li className="bg-transparent">
                   <NavLink
+                    to="dashboard/add-product"
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -43,7 +44,7 @@ const DashboardLayout = () => {
                 </li>
                 <li>
                   <NavLink
-                    to={"/dashboard/my-products"}
+                    to={"/dashboard"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",

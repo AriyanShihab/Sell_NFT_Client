@@ -14,7 +14,7 @@ const AdvertisedCard = ({ product }) => {
   } = product;
   const converSellerVerified = "" + sellerverified;
   return (
-    <div className=" rounded border border-indigo-300 border-opacity-25 flex flex-col justify-between">
+    <div className=" rounded border border-indigo-300 border-opacity-25 flex flex-col justify-between text-slate-200">
       <img className="w-full h-[260px] rounded-t" src={img} alt="" />
       <div className="p-3">
         <h3 className="text-xl my-2 font-bold text-cyan-500">{name}</h3>
