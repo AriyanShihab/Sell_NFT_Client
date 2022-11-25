@@ -1,7 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
+import BookingModal from "../../../Components/BookingMoadal/BookingModal";
 import AdvertisedCard from "../../../Components/Cards/AdvertisedCards/AdvertisedCard";
 import Loading from "../../../Components/Loader/Loading";
+import { UserContext } from "../../../Context/Auth/AuthContext";
 
 const Advertised = () => {
   const { data: products = [], isLoading } = useQuery({
@@ -12,6 +14,8 @@ const Advertised = () => {
       return data;
     },
   });
+
+  const { currentProduct, setCurrentProduct } = useContext(UserContext);
 
   if (isLoading) {
     return <Loading></Loading>;
@@ -29,10 +33,18 @@ const Advertised = () => {
                 <AdvertisedCard
                   key={product._id}
                   product={product}
+                  setCurrentProduct={setCurrentProduct}
                 ></AdvertisedCard>
               ))}
           </div>
         </div>
+
+        {currentProduct && (
+          <BookingModal
+            product={currentProduct}
+            setCurrentProduct={setCurrentProduct}
+          ></BookingModal>
+        )}
       </div>
     );
   }

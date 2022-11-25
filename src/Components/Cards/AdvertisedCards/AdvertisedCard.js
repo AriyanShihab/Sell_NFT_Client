@@ -1,8 +1,8 @@
 import React from "react";
-import { FaUserCheck } from "react-icons/fa";
-import BookingModal from "../../BookingMoadal/BookingModal";
 
-const AdvertisedCard = ({ product }) => {
+import { FaUserCheck } from "react-icons/fa";
+
+const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
   const {
     name,
     img,
@@ -13,6 +13,8 @@ const AdvertisedCard = ({ product }) => {
     conditionType,
     sellerverified,
   } = product;
+  console.log(product);
+
   const converSellerVerified = "" + sellerverified;
   return (
     <div>
@@ -36,6 +38,7 @@ const AdvertisedCard = ({ product }) => {
           </div>
 
           <label
+            onClick={() => setCurrentProduct(product)}
             htmlFor="bookingModal"
             className=" block text-center cursor-pointer mt-4 w-full px-4 py-3 rounded bg-gradient-to-l from-blue-500 to-cyan-500 font-bold text-xl text-slate-900 "
           >
@@ -43,7 +46,6 @@ const AdvertisedCard = ({ product }) => {
           </label>
         </div>
       </div>
-      {<BookingModal></BookingModal>}
     </div>
   );
 };

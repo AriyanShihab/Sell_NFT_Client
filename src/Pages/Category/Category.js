@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
+import BookingModal from "../../Components/BookingMoadal/BookingModal";
 import AdvertisedCard from "../../Components/Cards/AdvertisedCards/AdvertisedCard";
 import PageHeader from "../../Components/PageHeader/PageHeader";
+import { UserContext } from "../../Context/Auth/AuthContext";
 
 const Category = () => {
   const products = useLoaderData();
   const intro = products[0].category;
   const bgImg = products[0].img;
+  const { currentProduct, setCurrentProduct } = useContext(UserContext);
 
   return (
     <div className="min-h-screen">
@@ -23,9 +26,17 @@ const Category = () => {
             <AdvertisedCard
               key={product._id}
               product={product}
+              setCurrentProduct={setCurrentProduct}
             ></AdvertisedCard>
           ))}
       </div>
+
+      {currentProduct && (
+        <BookingModal
+          product={currentProduct}
+          setCurrentProduct={setCurrentProduct}
+        ></BookingModal>
+      )}
     </div>
   );
 };

@@ -1,10 +1,13 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import BookingModal from "../../../Components/BookingMoadal/BookingModal";
 import AdvertisedCard from "../../../Components/Cards/AdvertisedCards/AdvertisedCard";
 import Loading from "../../../Components/Loader/Loading";
+import { UserContext } from "../../../Context/Auth/AuthContext";
 
 const Categories = () => {
+  const { currentProduct, setCurrentProduct } = useContext(UserContext);
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -45,6 +48,7 @@ const Categories = () => {
             <AdvertisedCard
               key={product._id}
               product={product}
+              setCurrentProduct={setCurrentProduct}
             ></AdvertisedCard>
           ))}
       </div>
@@ -53,6 +57,12 @@ const Categories = () => {
           Show All Products
         </Link>
       </div>
+      {currentProduct && (
+        <BookingModal
+          product={currentProduct}
+          setCurrentProduct={setCurrentProduct}
+        ></BookingModal>
+      )}
     </div>
   );
 };

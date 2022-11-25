@@ -13,6 +13,8 @@ const auth = getAuth(app);
 
 export const UserContext = createContext();
 const AuthContext = ({ children }) => {
+  const [currentProduct, setCurrentProduct] = useState(null);
+
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -48,6 +50,8 @@ const AuthContext = ({ children }) => {
     user,
     loading,
     logout,
+    currentProduct,
+    setCurrentProduct,
   };
 
   return (
