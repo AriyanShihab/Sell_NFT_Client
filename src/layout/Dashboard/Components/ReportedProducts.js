@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import { toast } from "react-toastify";
 import Loading from "../../../Components/Loader/Loading";
 
 const ReportedProducts = () => {
@@ -15,7 +16,18 @@ const ReportedProducts = () => {
       return data;
     },
   });
-  const handelDelte = (id) => {};
+  const handelDelte = (id) => {
+    fetch(`http://localhost:5000/deleteReportedProduct/${id}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.acknowledged) {
+          toast.info("Product Deleted");
+          refetch();
+        }
+      });
+  };
 
   if (isLoading) {
     return <Loading></Loading>;
