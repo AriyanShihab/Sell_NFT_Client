@@ -1,14 +1,46 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { toast } from "react-toastify";
 import { UserContext } from "../../Context/Auth/AuthContext";
+import Loading from "../Loader/Loading";
 
 const BookingModal = ({ setCurrentProduct, product }) => {
   const { user } = useContext(UserContext);
   /**
    * On clicking the Book now button, a form in a modal will popup with the logged-in user name and email address, item name, and price(item name, price, and user information will not be editable) by default. You will give your phone number and meeting location, and lastly, there will be a submit button. After clicking the submit button, you will have to inform the buyer with a modal/toast that the item is booked.
+   *
+   *
    */
-
+  const [bookingLoading, setBookingLoading] = useState(false);
   const handelBooking = (event) => {
     event.preventDefault();
+    const productId = product._id;
+    fetch(`http://localhost:5000/product/${productId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        const bookedProduct = data;
+        bookedProduct.buyerEmail = user?.email;
+        fetch(`http://localhost:5000/bookings`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(bookedProduct),
+        })
+          .then((res) => res.json())
+          .then((bookedData) => {
+            if (bookedData.acknowledged) {
+              toast.success("Booking Added");
+            }
+          })
+          .catch((err) => {
+            toast.error(err.message);
+            setBookingLoading(false);
+          });
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setBookingLoading(false);
+      });
 
     setCurrentProduct(null);
   };
@@ -16,7 +48,7 @@ const BookingModal = ({ setCurrentProduct, product }) => {
   return (
     <div>
       <input type="checkbox" id="bookingModal" className="modal-toggle" />
-      <div className="modal modal-bottom sm:modal-middle">
+      <div className="modal ">
         <div className="modal-box">
           <form onSubmit={handelBooking} className="grid gap-y-2">
             <input
@@ -43,9 +75,21 @@ const BookingModal = ({ setCurrentProduct, product }) => {
               defaultValue={product.sellingPrice}
               disabled
             />
+            <input
+              className="styledInput"
+              type="number"
+              placeholder="your Contact Number"
+              required
+            />
+            <input
+              className="styledInput"
+              type="text"
+              placeholder="your Meeting Location"
+              required
+            />
 
             <button type="submit" className="myBtn mt-3 w-full">
-              Book Now
+              {bookingLoading ? <Loading></Loading> : "Book Now"}
             </button>
           </form>
         </div>

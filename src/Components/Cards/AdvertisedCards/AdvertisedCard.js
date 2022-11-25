@@ -13,7 +13,6 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
     conditionType,
     sellerverified,
   } = product;
-  console.log(product);
 
   const converSellerVerified = "" + sellerverified;
   return (
