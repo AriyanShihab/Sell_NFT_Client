@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-
+import React, { useContext, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import { UserContext } from "../../../Context/Auth/AuthContext";
 
 import SmallSpinner from "../../Loader/SmallSpinner";
 
 const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
   const [reportLoading, setReportLoading] = useState(false);
   const [reportText, setReportText] = useState("Report Product");
+  const { user } = useContext(UserContext);
   const {
     name,
     img,
@@ -76,14 +78,26 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
           <div className="flex justify-between bg-slate-800 p-2 py-3 rounded mt-3">
             <p>Condition Type: {conditionType}</p>
           </div>
-
-          <label
-            onClick={() => setCurrentProduct(product)}
-            htmlFor="bookingModal"
-            className=" block text-center cursor-pointer mt-4 w-full px-4 py-3 rounded bg-gradient-to-l from-blue-500 to-cyan-500 font-bold text-xl text-slate-900 "
-          >
-            Book Now
-          </label>
+          {user && user?.uid ? (
+            <>
+              <label
+                onClick={() => setCurrentProduct(product)}
+                htmlFor="bookingModal"
+                className=" block text-center cursor-pointer mt-4 w-full px-4 py-3 rounded bg-gradient-to-l from-blue-500 to-cyan-500 font-bold text-xl text-slate-900 "
+              >
+                Book Now
+              </label>
+            </>
+          ) : (
+            <>
+              <Link
+                to={"/login"}
+                className=" block text-center cursor-pointer mt-4 w-full px-4 py-3 rounded bg-gradient-to-l from-red-300 to-orange-300 font-bold text-xl text-slate-900 "
+              >
+                Login First
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </div>

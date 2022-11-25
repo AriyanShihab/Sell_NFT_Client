@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import bg from "../../Assets/bannerBG.webp";
 import SmallSpinner from "../../Components/Loader/SmallSpinner";
@@ -15,6 +15,9 @@ const Login = () => {
 
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location?.state?.from?.pathname || "/";
 
   const handelLogin = (data) => {
     setLoginLoader(true);
@@ -25,6 +28,7 @@ const Login = () => {
         if (user?.uid) {
           toast.success("Login successfully");
           setLoginLoader(false);
+          navigate(from, { replace: true });
         }
       })
       .catch((err) => {
