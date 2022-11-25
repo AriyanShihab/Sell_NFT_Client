@@ -8,6 +8,7 @@ import useRole from "../../Hooks/useRole";
 const DashboardLayout = () => {
   const { user } = useContext(UserContext);
   const [userRole, roleLoading] = useRole(user?.email);
+  console.log(userRole);
   if (roleLoading) {
     return <Loading></Loading>;
   }
@@ -67,6 +68,23 @@ const DashboardLayout = () => {
                     }}
                   >
                     My Orders
+                  </NavLink>
+                </li>
+              </>
+            )}
+
+            {userRole === "admin" && (
+              <>
+                <li>
+                  <NavLink
+                    to={"dashboard/reported-product"}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "#06b6d4" : "#efefef",
+                      };
+                    }}
+                  >
+                    Reported prodcut
                   </NavLink>
                 </li>
               </>
