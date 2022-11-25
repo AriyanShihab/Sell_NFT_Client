@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useState } from "react";
 import { toast } from "react-toastify";
 import Loading from "../../../Components/Loader/Loading";
+import SmallSpinner from "../../../Components/Loader/SmallSpinner";
 
 const AllSeller = () => {
+  const [deleteLoader, setDeleteLoader] = useState(false);
   const {
     data: users = [],
     isLoading,
@@ -33,7 +35,24 @@ const AllSeller = () => {
       });
   };
 
-  const handelDelete = (email) => {};
+  const handelDelete = (email) => {
+    setDeleteLoader(true);
+    fetch(`http://localhost:5000/delete-user/${email}`, {
+      method: "DELETE",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.deletedCount > 0) {
+          toast.info("user Deleted");
+          refetch();
+          setDeleteLoader(false);
+        }
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setDeleteLoader(false);
+      });
+  };
 
   return (
     <div>
@@ -81,10 +100,10 @@ const AllSeller = () => {
               </td>
               <td>
                 <button
-                  onClick={() => handelDelete(user.eamil)}
+                  onClick={() => handelDelete(user.email)}
                   className="btn btn-error btn-sm"
                 >
-                  delete
+                  {deleteLoader ? <SmallSpinner></SmallSpinner> : "delete"}
                 </button>
               </td>
             </tr>
