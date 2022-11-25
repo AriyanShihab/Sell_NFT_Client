@@ -101,6 +101,19 @@ const DashboardLayout = () => {
                     All Seller
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    end
+                    to={"dashboard/all-buyer"}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "#06b6d4" : "#efefef",
+                      };
+                    }}
+                  >
+                    All Buyer
+                  </NavLink>
+                </li>
               </>
             )}
           </ul>

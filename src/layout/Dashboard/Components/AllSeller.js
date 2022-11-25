@@ -1,5 +1,7 @@
-import React from "react";
 import { useQuery } from "@tanstack/react-query";
+import React from "react";
+import { toast } from "react-toastify";
+import Loading from "../../../Components/Loader/Loading";
 
 const AllSeller = () => {
   const {
@@ -14,6 +16,24 @@ const AllSeller = () => {
       return data;
     },
   });
+  if (isLoading) {
+    return <Loading></Loading>;
+  }
+
+  const handelVerify = (email) => {
+    fetch(`http://localhost:5000/verifySeller/${email}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.products.acknowledged && data.verifyed.acknowledged) {
+          toast.success("User Verifyed Successfully");
+          refetch();
+        }
+      });
+  };
+
+  const handelDelete = (email) => {};
 
   return (
     <div>
@@ -25,6 +45,7 @@ const AllSeller = () => {
             <th>Image</th>
             <th>Name</th>
             <th>email</th>
+            <th>Verification</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -41,11 +62,29 @@ const AllSeller = () => {
               <td>{user.email}</td>
 
               <td>
+                {user.isVerified ? (
+                  <>
+                    <button className="btn btn-sm bg-green-500 text-slate-900">
+                      Verifyed
+                    </button>
+                  </>
+                ) : (
+                  <>
+                    <button
+                      onClick={() => handelVerify(user.email)}
+                      className="btn btn-sm btn-warning"
+                    >
+                      Verify
+                    </button>
+                  </>
+                )}
+              </td>
+              <td>
                 <button
-                  // onClick={() => handelDelte(product._id)}
-                  className="btn btn-sm btn-warning"
+                  onClick={() => handelDelete(user.eamil)}
+                  className="btn btn-error btn-sm"
                 >
-                  Verify
+                  delete
                 </button>
               </td>
             </tr>
