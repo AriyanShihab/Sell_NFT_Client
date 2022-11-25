@@ -57,27 +57,56 @@ const Header = () => {
               Blog
             </NavLink>
           </li>
-          {user?.email && (
+          {user?.email ? (
             <>
               <button onClick={logout} className="btn bg-cyan-400 btn-sm">
                 Log Out
               </button>
+
+              <li>
+                <NavLink
+                  to="/dashboard"
+                  aria-label="Cart"
+                  title="Cart"
+                  className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  style={({ isActive }) => {
+                    return { color: isActive ? "#06b6d4" : "#cdd3dc" };
+                  }}
+                >
+                  Dashboard
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink
+                  to="/signup"
+                  aria-label="SignUp"
+                  title="SignUp"
+                  className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  style={({ isActive }) => {
+                    return { color: isActive ? "#06b6d4" : "#cdd3dc" };
+                  }}
+                >
+                  Signup
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/login"
+                  aria-label="SignUp"
+                  title="SignUp"
+                  className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-deep-purple-accent-400"
+                  style={({ isActive }) => {
+                    return { color: isActive ? "#06b6d4" : "#cdd3dc" };
+                  }}
+                >
+                  Login
+                </NavLink>
+              </li>
             </>
           )}
-
-          <li>
-            <NavLink
-              to="/dashboard"
-              aria-label="Cart"
-              title="Cart"
-              className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-deep-purple-accent-400"
-              style={({ isActive }) => {
-                return { color: isActive ? "#06b6d4" : "#cdd3dc" };
-              }}
-            >
-              Dashboard
-            </NavLink>
-          </li>
         </ul>
         <div className="lg:hidden">
           <button

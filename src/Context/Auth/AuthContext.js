@@ -47,6 +47,7 @@ const AuthContext = ({ children }) => {
     login,
     user,
     loading,
+    logout,
   };
 
   return (
