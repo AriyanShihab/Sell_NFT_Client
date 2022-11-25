@@ -52,12 +52,6 @@ const MyProducts = () => {
       });
   };
 
-  /**
-   * On the "My Products" page, display sales status (available or sold), price, and any other relevant information you want to show. A seller will be able to delete any of his/her product. Please note there will be a special button for each unsold/available product where the seller can hit the button to advertise.
-    
-   */
-
-  console.log();
   return (
     <div>
       <h2 className="text-cyan-500 text-4xl">
@@ -69,8 +63,9 @@ const MyProducts = () => {
             <tr>
               <th>Sl:</th>
               <th>Image</th>
-              <th>name</th>
+              <th className="hidden lg:block">name</th>
               <th>price</th>
+              <th>Availaibility</th>
               <th>Action</th>
               <th>Advertised</th>
             </tr>
@@ -82,12 +77,19 @@ const MyProducts = () => {
                 <td>
                   <img className="w-8" src={product.img} alt="" />
                 </td>
-                <td>
-                  <span className="max-w-[200px]">
-                    {product.name.substr(0, 50)}
-                  </span>
+                <td className="hidden lg:block">
+                  <span>{product.name.substr(0, 50)}</span>
                 </td>
                 <td>{product.sellingPrice}</td>
+                <td>
+                  {product.available ? (
+                    <button className="btn btn-sm btn-success">
+                      Available
+                    </button>
+                  ) : (
+                    <button className="btn btn-sm btn-warning">Sold</button>
+                  )}
+                </td>
                 <td>
                   <button
                     onClick={() => handelDelte(product._id)}
