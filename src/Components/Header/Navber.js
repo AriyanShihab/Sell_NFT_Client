@@ -5,7 +5,7 @@ import { UserContext } from "../../Context/Auth/AuthContext";
 
 const Header = () => {
   const { logout, user } = useContext(UserContext);
-  console.log(user);
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
     <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full  md:px-24 lg:px-8 bg-slate-900 bg-opacity-40 backdrop-blur-lg shadow-sm z-[999] sticky top-0  border-b border-gray-100 border-opacity-30  ">

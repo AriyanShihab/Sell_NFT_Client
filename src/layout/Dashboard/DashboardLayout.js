@@ -11,7 +11,6 @@ const DashboardLayout = () => {
   if (roleLoading) {
     return <Loading></Loading>;
   }
-  console.log(userRole);
 
   return (
     <div>
@@ -28,7 +27,7 @@ const DashboardLayout = () => {
         <div className="drawer-side bg-slate-800 shadow-xl">
           <label htmlFor="dashboard-drawer" className="drawer-overlay"></label>
           <ul className="menu p-4 w-80 text-cyan-500 dashboard-menu">
-            {userRole === "seller" ? (
+            {userRole === "seller" && (
               <>
                 <li className="bg-transparent">
                   <NavLink
@@ -55,8 +54,22 @@ const DashboardLayout = () => {
                   </NavLink>
                 </li>
               </>
-            ) : (
-              <></>
+            )}
+            {userRole === "buyer" && (
+              <>
+                <li>
+                  <NavLink
+                    to={"dashboard/my-orders"}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "#06b6d4" : "#efefef",
+                      };
+                    }}
+                  >
+                    My Orders
+                  </NavLink>
+                </li>
+              </>
             )}
           </ul>
         </div>

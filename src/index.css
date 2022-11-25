@@ -67,5 +67,31 @@ code {
   background-color: transparent !important;
 }
 .styledInput {
-  @apply p-3 rounded w-full text-slate-900 bg-slate-100 border border-slate-800 border-opacity-20 shadow;
+  @apply p-3 rounded w-full text-slate-100 bg-slate-900 border border-slate-200 border-opacity-20 shadow;
+}
+.myTable {
+  background-color: #0b253f !important;
+  border-radius: 6px;
+}
+.myTable th {
+  background-color: #0f263d !important;
+  color: #79ade0;
+}
+.myTable td {
+  background-color: #0c2b4a !important;
+  color: #79ade0;
+  margin: 4px 0;
+}
+.myTable tbody tr:nth-child(even) {
+  background-color: #7da9d7 !important;
+}
+.myTable tbody tr {
+  border-bottom: 1px solid #72bffa4a;
+}
+.myTable tbody tr:last-child(last) {
+  border-bottom: none !important;
+}
+
+.modal-box {
+  background-color: #0b253f !important;
 }
