@@ -77,6 +77,7 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink
+                    end
                     to={"dashboard/reported-product"}
                     style={({ isActive }) => {
                       return {
@@ -85,6 +86,19 @@ const DashboardLayout = () => {
                     }}
                   >
                     Reported prodcut
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    end
+                    to={"dashboard/all-seller"}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "#06b6d4" : "#efefef",
+                      };
+                    }}
+                  >
+                    All Seller
                   </NavLink>
                 </li>
               </>
