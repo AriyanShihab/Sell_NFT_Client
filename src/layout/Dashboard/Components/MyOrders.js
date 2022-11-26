@@ -38,7 +38,9 @@ const MyOrders = () => {
 
   return (
     <div className=" mx-3">
-      <h1 className="text-cyan-500 text-3xl">welcome {user?.displayName}</h1>
+      <h1 className="text-cyan-500 font-bold ml-3 mb-4 text-3xl">
+        welcome {user?.displayName}
+      </h1>
       <table className="table table-zebra w-full mx-3 myTable">
         <thead>
           <tr>

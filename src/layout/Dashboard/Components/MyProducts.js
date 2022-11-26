@@ -7,6 +7,7 @@ import { UserContext } from "../../../Context/Auth/AuthContext";
 
 const MyProducts = () => {
   const { user, loading } = useContext(UserContext);
+
   const {
     data: products = [],
     isLoading,
@@ -15,7 +16,12 @@ const MyProducts = () => {
     queryKey: ["myBookings"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-products?email=${user?.email}`
+        `http://localhost:5000/my-products?email=${user?.email}`,
+        {
+          headers: {
+            auth_token: `bearar ${localStorage.getItem("NFT_Token")}`,
+          },
+        }
       );
 
       const data = await res.json();
@@ -39,9 +45,10 @@ const MyProducts = () => {
       });
   };
 
-  const handelDelte = (id) => {
+  const handelDelete = (id) => {
     fetch(`http://localhost:5000/delete-product/${id}`, {
       method: "DELETE",
+      authToken: `bearar ${localStorage.getItem("NFT_Token")}`,
     })
       .then((res) => res.json())
       .then((data) => {
@@ -58,7 +65,7 @@ const MyProducts = () => {
         Products Length :{products.length}
       </h2>
       <div className="">
-        <table className="table table-zebra w-full">
+        <table className="table myTable table-zebra w-full">
           <thead>
             <tr>
               <th>Sl:</th>
@@ -73,11 +80,11 @@ const MyProducts = () => {
           <tbody>
             {products.map((product, ind) => (
               <tr key={product._id}>
-                <th>{ind + 1}</th>
+                <td>{ind + 1}</td>
                 <td>
                   <img className="w-8" src={product.img} alt="" />
                 </td>
-                <td className="hidden lg:block">
+                <td>
                   <span>{product.name.substr(0, 50)}</span>
                 </td>
                 <td>{product.sellingPrice}</td>
@@ -92,22 +99,31 @@ const MyProducts = () => {
                 </td>
                 <td>
                   <button
-                    onClick={() => handelDelte(product._id)}
+                    onClick={() => handelDelete(product._id)}
                     className="btn btn-sm btn-warning"
                   >
                     Delete
                   </button>
                 </td>
-                <td>
-                  {!product.advertised && product.available && (
-                    <button
-                      onClick={() => handelAdvertised(product._id)}
-                      className="btn btn-sm btn-success"
-                    >
-                      Advertise
+                {!product.advertised && product.available && (
+                  <td>
+                    {
+                      <button
+                        onClick={() => handelAdvertised(product._id)}
+                        className="btn btn-sm btn-success"
+                      >
+                        Advertise
+                      </button>
+                    }
+                  </td>
+                )}
+                {product.advertised && product.available && (
+                  <td>
+                    <button className="btn btn-sm btn-warning">
+                      Add running
                     </button>
-                  )}
-                </td>
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>
