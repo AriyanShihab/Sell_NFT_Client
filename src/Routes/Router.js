@@ -8,6 +8,7 @@ import MyProducts from "../layout/Dashboard/Components/MyProducts";
 import ReportedProducts from "../layout/Dashboard/Components/ReportedProducts";
 import DashboardLayout from "../layout/Dashboard/DashboardLayout";
 import Main from "../layout/Main";
+import AllProducts from "../Pages/AllProducts/AllProducts";
 import Category from "../Pages/Category/Category";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/login",
         element: <Login></Login>,
+      },
+      {
+        path: "/products",
+        element: <AllProducts></AllProducts>,
       },
       {
         path: "/categories/:category",
