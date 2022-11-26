@@ -7,7 +7,7 @@ import SmallSpinner from "../../Components/Loader/SmallSpinner";
 import { UserContext } from "../../Context/Auth/AuthContext";
 
 const Login = () => {
-  const { login } = useContext(UserContext);
+  const { login, loginwithPopup } = useContext(UserContext);
   const [loginLoader, setLoginLoader] = useState(false);
   const {
     register,
@@ -26,6 +26,7 @@ const Login = () => {
         const user = userCredential.user;
 
         if (user?.uid) {
+          getToken(user.email);
           toast.success("Login successfully");
           setLoginLoader(false);
           navigate(from, { replace: true });
@@ -36,6 +37,56 @@ const Login = () => {
         toast.error(err.message);
       });
   };
+
+  const getToken = (email) => {
+    fetch(`http://localhost:5000/jwt?email=${email}`)
+      .then((res) => res.json())
+      .then((tokenData) => {
+        if (tokenData.accessToken) {
+          localStorage.setItem("NFT_Token", tokenData.accessToken);
+          toast.success("user created successfully");
+          navigate("/");
+          setLoginLoader(false);
+        }
+      });
+  };
+  const handelGoogleSignIn = () => {
+    loginwithPopup()
+      .then((result) => {
+        const user = result.user;
+        getToken(user?.email);
+        const userForDB = {
+          name: user?.displayName,
+          email: user?.email,
+          photoURL: user.photoURL,
+          role: "buyer",
+          isVerified: false,
+        };
+        console.log(userForDB);
+
+        fetch(`http://localhost:5000/googleUsers`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userForDB),
+        })
+          .then((res) => res.jsson())
+          .then((data) => {
+            if (data.message) {
+              navigate("/");
+            }
+            if (data.acknowledged) {
+              toast.success("login successfully");
+              navigate("/");
+            }
+          });
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
   return (
     <div
       className="min-h-screen px-3 relative detailsBanner z-10 flex justify-center items-center"
@@ -92,7 +143,9 @@ const Login = () => {
           </button>
         </div>
         <div>
-          <button className="  ml-0 myBtn w-full">Sign Up with Google</button>
+          <button onClick={handelGoogleSignIn} className="  ml-0 myBtn w-full">
+            Sign Up with Google
+          </button>
         </div>
       </form>
     </div>

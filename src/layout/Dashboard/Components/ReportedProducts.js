@@ -11,7 +11,11 @@ const ReportedProducts = () => {
   } = useQuery({
     queryKey: ["reportedItems"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/getReported`);
+      const res = await fetch(`http://localhost:5000/getReported`, {
+        headers: {
+          authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
@@ -19,6 +23,9 @@ const ReportedProducts = () => {
   const handelDelte = (id) => {
     fetch(`http://localhost:5000/deleteReportedProduct/${id}`, {
       method: "DELETE",
+      headers: {
+        authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

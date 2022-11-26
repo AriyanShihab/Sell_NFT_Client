@@ -61,6 +61,7 @@ const AddProducts = () => {
           fetch(`http://localhost:5000/add-products`, {
             method: "POST",
             headers: {
+              authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
               "content-type": "application/json",
             },
             body: JSON.stringify(product),

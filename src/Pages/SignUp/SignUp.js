@@ -7,7 +7,7 @@ import SmallSpinner from "../../Components/Loader/SmallSpinner";
 import { UserContext } from "../../Context/Auth/AuthContext";
 
 const SignUp = () => {
-  const { createUser, updateUser } = useContext(UserContext);
+  const { createUser, updateUser, loginwithPopup } = useContext(UserContext);
   const [signupLoader, setSignUpLoader] = useState(false);
   const navigate = useNavigate();
   const {
@@ -80,6 +80,43 @@ const SignUp = () => {
       .catch((err) => {
         toast.error(err.message);
         setSignUpLoader(false);
+      });
+  };
+
+  const handelGoogleSignIn = () => {
+    loginwithPopup()
+      .then((result) => {
+        const user = result.user;
+        getToken(user?.email);
+        const userForDB = {
+          name: user?.displayName,
+          email: user?.email,
+          photoURL: user.photoURL,
+          role: "buyer",
+          isVerified: false,
+        };
+        console.log(userForDB);
+
+        fetch(`http://localhost:5000/googleUsers`, {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userForDB),
+        })
+          .then((res) => res.jsson())
+          .then((data) => {
+            if (data.message) {
+              navigate("/");
+            }
+            if (data.acknowledged) {
+              toast.success("login successfully");
+              navigate("/");
+            }
+          });
+      })
+      .catch((err) => {
+        console.log(err.message);
       });
   };
 
@@ -190,7 +227,9 @@ const SignUp = () => {
           </button>
         </div>
         <div>
-          <button className="  ml-0 myBtn w-full">Sign Up with Google</button>
+          <button onClick={handelGoogleSignIn} className="  ml-0 myBtn w-full">
+            Sign Up with Google
+          </button>
         </div>
       </form>
     </div>

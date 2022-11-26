@@ -19,7 +19,7 @@ const MyProducts = () => {
         `http://localhost:5000/my-products?email=${user?.email}`,
         {
           headers: {
-            auth_token: `bearar ${localStorage.getItem("NFT_Token")}`,
+            authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
           },
         }
       );
@@ -48,7 +48,9 @@ const MyProducts = () => {
   const handelDelete = (id) => {
     fetch(`http://localhost:5000/delete-product/${id}`, {
       method: "DELETE",
-      authToken: `bearar ${localStorage.getItem("NFT_Token")}`,
+      headers: {
+        authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -61,8 +63,8 @@ const MyProducts = () => {
 
   return (
     <div>
-      <h2 className="text-cyan-500 text-4xl">
-        Products Length :{products.length}
+      <h2 className="text-cyan-500 text-4xl font-bold mb-5 ml-3">
+        Products Length:{products.length}
       </h2>
       <div className="">
         <table className="table myTable table-zebra w-full">

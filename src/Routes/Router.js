@@ -1,9 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 import AddProducts from "../layout/Dashboard/Components/AddProducts";
-import AllSeller from "../layout/Dashboard/Components/AllSeller";
 import AllBuyer from "../layout/Dashboard/Components/AllBuyer";
+import AllSeller from "../layout/Dashboard/Components/AllSeller";
 import MyOrders from "../layout/Dashboard/Components/MyOrders";
-import MyProducts from "../layout/Dashboard/Components/MyProducts";
 import ReportedProducts from "../layout/Dashboard/Components/ReportedProducts";
 import DashboardLayout from "../layout/Dashboard/DashboardLayout";
 import Main from "../layout/Main";
@@ -12,6 +11,7 @@ import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
 import SignUp from "../Pages/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
+import AdminRoute from "./AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/dashboard",
-        element: <MyProducts></MyProducts>,
+        element: <p className="">Welcome To dashbord</p>,
       },
       {
         path: "dashboard/my-orders",
@@ -65,15 +65,27 @@ const router = createBrowserRouter([
       },
       {
         path: "dashboard/reported-product",
-        element: <ReportedProducts></ReportedProducts>,
+        element: (
+          <AdminRoute>
+            <ReportedProducts></ReportedProducts>
+          </AdminRoute>
+        ),
       },
       {
         path: "dashboard/all-seller",
-        element: <AllSeller></AllSeller>,
+        element: (
+          <AdminRoute>
+            <AllSeller></AllSeller>
+          </AdminRoute>
+        ),
       },
       {
         path: "dashboard/all-buyer",
-        element: <AllBuyer></AllBuyer>,
+        element: (
+          <AdminRoute>
+            <AllBuyer></AllBuyer>
+          </AdminRoute>
+        ),
       },
     ],
   },

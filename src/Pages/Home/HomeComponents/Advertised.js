@@ -20,7 +20,7 @@ const Advertised = () => {
   if (isLoading) {
     return <Loading></Loading>;
   }
-  if (products.length) {
+  if (products?.length) {
     return (
       <div className="bg-slate-900 text-indigo-300 pt-32">
         <div className="max-w-6xl mx-auto px-3">

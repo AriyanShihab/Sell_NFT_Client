@@ -13,7 +13,11 @@ const AllSeller = () => {
   } = useQuery({
     queryKey: ["allSeller"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/all-seller`);
+      const res = await fetch(`http://localhost:5000/all-seller`, {
+        headers: {
+          authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
+        },
+      });
       const data = await res.json();
       return data;
     },
@@ -25,6 +29,9 @@ const AllSeller = () => {
   const handelVerify = (email) => {
     fetch(`http://localhost:5000/verifySeller/${email}`, {
       method: "PATCH",
+      headers: {
+        authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -39,6 +46,9 @@ const AllSeller = () => {
     setDeleteLoader(true);
     fetch(`http://localhost:5000/delete-user/${email}`, {
       method: "DELETE",
+      headers: {
+        authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
+      },
     })
       .then((res) => res.json())
       .then((data) => {

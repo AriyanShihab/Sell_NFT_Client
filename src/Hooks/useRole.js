@@ -9,9 +9,10 @@ const useRole = (email) => {
         .then((res) => res.json())
         .then((data) => {
           setUserRole(data.role);
+          setRoleLoading(false);
         });
     }
-    return () => setRoleLoading(false);
+    // return () => setRoleLoading(false);
   }, [email]);
 
   return [userRole, roleLoading];
