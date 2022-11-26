@@ -32,6 +32,7 @@ const DashboardLayout = () => {
               <>
                 <li className="bg-transparent">
                   <NavLink
+                    end
                     to="dashboard/add-product"
                     style={({ isActive }) => {
                       return {
@@ -42,8 +43,9 @@ const DashboardLayout = () => {
                     Add A Product
                   </NavLink>
                 </li>
-                <li>
+                {/* <li>
                   <NavLink
+                    end
                     to={"/dashboard"}
                     style={({ isActive }) => {
                       return {
@@ -53,6 +55,32 @@ const DashboardLayout = () => {
                   >
                     My Products
                   </NavLink>
+                </li> */}
+                <li>
+                  <NavLink
+                    end
+                    to={"dashboard/my-products"}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "#06b6d4" : "#efefef",
+                      };
+                    }}
+                  >
+                    My Product
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink
+                    end
+                    to={"dashboard/my-orders"}
+                    style={({ isActive }) => {
+                      return {
+                        color: isActive ? "#06b6d4" : "#efefef",
+                      };
+                    }}
+                  >
+                    My Orders
+                  </NavLink>
                 </li>
               </>
             )}
@@ -60,6 +88,7 @@ const DashboardLayout = () => {
               <>
                 <li>
                   <NavLink
+                    end
                     to={"dashboard/my-orders"}
                     style={({ isActive }) => {
                       return {
@@ -118,7 +147,7 @@ const DashboardLayout = () => {
             )}
 
             {
-              <li>
+              <li className="absolute bottom-20">
                 {user.displayName} sign in as {userRole}
               </li>
             }

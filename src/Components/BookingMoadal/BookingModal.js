@@ -5,11 +5,7 @@ import Loading from "../Loader/Loading";
 
 const BookingModal = ({ setCurrentProduct, product }) => {
   const { user } = useContext(UserContext);
-  /**
-   * On clicking the Book now button, a form in a modal will popup with the logged-in user name and email address, item name, and price(item name, price, and user information will not be editable) by default. You will give your phone number and meeting location, and lastly, there will be a submit button. After clicking the submit button, you will have to inform the buyer with a modal/toast that the item is booked.
-   *
-   *
-   */
+
   const [bookingLoading, setBookingLoading] = useState(false);
   const handelBooking = (event) => {
     event.preventDefault();
@@ -19,6 +15,7 @@ const BookingModal = ({ setCurrentProduct, product }) => {
       .then((data) => {
         const bookedProduct = data;
         bookedProduct.buyerEmail = user?.email;
+        delete bookedProduct._id;
         fetch(`http://localhost:5000/bookings`, {
           method: "POST",
           headers: {
