@@ -24,7 +24,7 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
 
   const handelReport = () => {
     setReportLoading(true);
-    fetch(`http://localhost:5000/add-report/${product._id}`, {
+    fetch(` https://sel-nft.vercel.app/add-report/${product._id}`, {
       method: "PATCH",
     })
       .then((res) => res.json())

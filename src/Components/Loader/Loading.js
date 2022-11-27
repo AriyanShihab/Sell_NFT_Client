@@ -4,10 +4,10 @@ const Loading = () => {
   const arr = [1, 2, 3, 4];
 
   return (
-    <div className="h-screen w-full grid place-items-center md:px-8">
+    <div className="h-screen w-full grid place-items-center md:px-8 bg-slate-900">
       <div className="grid  md:grid-cols-2 gap-4">
         {arr.map((n) => (
-          <div>
+          <div key={n}>
             <div
               role="status"
               className="space-y-8 animate-pulse md:space-y-0 md:space-x-8 md:flex md:items-center"

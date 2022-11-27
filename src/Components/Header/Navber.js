@@ -8,8 +8,8 @@ const Header = () => {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   return (
-    <div className="px-4 py-5 mx-auto sm:max-w-xl md:max-w-full  md:px-24 lg:px-8 bg-slate-900 bg-opacity-40 backdrop-blur-lg shadow-sm z-[999] sticky top-0  border-b border-gray-100 border-opacity-30  ">
-      <div className="relative flex items-center justify-between md:w-4/5 mx-auto">
+    <div className="px-4 py-5 mx-auto  md:max-w-full  md:px-24 lg:px-8 bg-slate-900 bg-opacity-40 backdrop-blur-lg shadow-sm z-[999] sticky top-0  border-b border-gray-100 border-opacity-30  ">
+      <div className="relative flex items-center justify-between mx-w-6xl mx-auto">
         <NavLink
           end
           to="/"
@@ -132,7 +132,10 @@ const Header = () => {
             </svg>
           </button>
 
-          <label htmlFor="dashboard-drawer" className="lg:hidden">
+          <label
+            htmlFor="dashboard-drawer"
+            className="lg:hidden font-bold text-cyan-500"
+          >
             {
               <FaMegaport className="text-cyan-500 inline ml-2 -mt-2 text-xl"></FaMegaport>
             }

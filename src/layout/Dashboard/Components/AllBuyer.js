@@ -13,7 +13,7 @@ const AllSeller = () => {
   } = useQuery({
     queryKey: ["allBuyer"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/all-buyer`, {
+      const res = await fetch(` https://sel-nft.vercel.app/all-buyer`, {
         headers: {
           authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
         },
@@ -28,7 +28,7 @@ const AllSeller = () => {
 
   const handelDelete = (email) => {
     setDeleteLoader(true);
-    fetch(`http://localhost:5000/delete-user/${email}`, {
+    fetch(` https://sel-nft.vercel.app/delete-user/${email}`, {
       method: "DELETE",
       headers: {
         authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
@@ -49,7 +49,7 @@ const AllSeller = () => {
   };
 
   const handelVerify = (email) => {
-    fetch(`http://localhost:5000/verifyBuyer/${email}`, {
+    fetch(` https://sel-nft.vercel.app/verifyBuyer/${email}`, {
       method: "PATCH",
       headers: {
         authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
@@ -65,9 +65,10 @@ const AllSeller = () => {
   };
 
   return (
-    <div>
+    <div className="text-center relative">
       <h3 className="font-bold text-cyan-500 text-3xl mb-8">Hello Admin</h3>
-      <table className="table table-zebra w-full mx-3 myTable">
+
+      <table className="mx-auto table  myTable p-4 overflow-x-scroll">
         <thead>
           <tr>
             <th>Sl:</th>

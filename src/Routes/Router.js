@@ -8,6 +8,7 @@ import MyProducts from "../layout/Dashboard/Components/MyProducts";
 import ReportedProducts from "../layout/Dashboard/Components/ReportedProducts";
 import DashboardLayout from "../layout/Dashboard/DashboardLayout";
 import Main from "../layout/Main";
+import AllAvd from "../Pages/AllAvd";
 import AllProducts from "../Pages/AllProducts/AllProducts";
 import Category from "../Pages/Category/Category";
 import Home from "../Pages/Home/Home";
@@ -39,10 +40,14 @@ const router = createBrowserRouter([
         element: <AllProducts></AllProducts>,
       },
       {
+        path: "/all-adv",
+        element: <AllAvd></AllAvd>,
+      },
+      {
         path: "/categories/:category",
 
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/categories/${params.category}`),
+          fetch(` https://sel-nft.vercel.app/categories/${params.category}`),
         element: (
           <PrivateRoute>
             <Category></Category>
@@ -64,20 +69,19 @@ const router = createBrowserRouter([
         element: <WelcomePage></WelcomePage>,
       },
       {
-        path: "dashboard/my-orders",
+        path: "/dashboard/my-orders",
         element: <MyOrders></MyOrders>,
       },
       {
-        path: "dashboard/my-products",
+        path: "/dashboard/my-products",
         element: (
           <SellerRoute>
-            {" "}
             <MyProducts></MyProducts>
           </SellerRoute>
         ),
       },
       {
-        path: "dashboard/add-product",
+        path: "/dashboard/add-product",
         element: (
           <SellerRoute>
             <AddProducts></AddProducts>
@@ -85,7 +89,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/reported-product",
+        path: "/dashboard/reported-product",
         element: (
           <AdminRoute>
             <ReportedProducts></ReportedProducts>
@@ -93,7 +97,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/all-seller",
+        path: "/dashboard/all-seller",
         element: (
           <AdminRoute>
             <AllSeller></AllSeller>
@@ -101,7 +105,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "dashboard/all-buyer",
+        path: "/dashboard/all-buyer",
         element: (
           <AdminRoute>
             <AllBuyer></AllBuyer>

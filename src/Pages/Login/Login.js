@@ -39,7 +39,7 @@ const Login = () => {
   };
 
   const getToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(` https://sel-nft.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((tokenData) => {
         if (tokenData.accessToken) {
@@ -64,7 +64,7 @@ const Login = () => {
         };
         console.log(userForDB);
 
-        fetch(`http://localhost:5000/googleUsers`, {
+        fetch(` https://sel-nft.vercel.app/googleUsers`, {
           method: "POST",
           headers: {
             "content-type": "application/json",

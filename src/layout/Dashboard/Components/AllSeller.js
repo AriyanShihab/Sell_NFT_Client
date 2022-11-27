@@ -13,7 +13,7 @@ const AllSeller = () => {
   } = useQuery({
     queryKey: ["allSeller"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/all-seller`, {
+      const res = await fetch(` https://sel-nft.vercel.app/all-seller`, {
         headers: {
           authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
         },
@@ -27,7 +27,7 @@ const AllSeller = () => {
   }
 
   const handelVerify = (email) => {
-    fetch(`http://localhost:5000/verifySeller/${email}`, {
+    fetch(` https://sel-nft.vercel.app/verifySeller/${email}`, {
       method: "PATCH",
       headers: {
         authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
@@ -44,7 +44,7 @@ const AllSeller = () => {
 
   const handelDelete = (email) => {
     setDeleteLoader(true);
-    fetch(`http://localhost:5000/delete-user/${email}`, {
+    fetch(` https://sel-nft.vercel.app/delete-user/${email}`, {
       method: "DELETE",
       headers: {
         authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,

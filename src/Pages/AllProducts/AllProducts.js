@@ -1,13 +1,12 @@
-import React, { useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
 
-import PageHeader from "../../Components/PageHeader/PageHeader";
 import bgImg from "../../Assets/hero-shape-2.svg";
-import Loading from "../../Components/Loader/Loading";
-import { UserContext } from "../../Context/Auth/AuthContext";
-import AdvertisedCard from "../../Components/Cards/AdvertisedCards/AdvertisedCard";
 import BookingModal from "../../Components/BookingMoadal/BookingModal";
+import AdvertisedCard from "../../Components/Cards/AdvertisedCards/AdvertisedCard";
+import Loading from "../../Components/Loader/Loading";
+import PageHeader from "../../Components/PageHeader/PageHeader";
+import { UserContext } from "../../Context/Auth/AuthContext";
 
 const AllProducts = () => {
   const { currentProduct, setCurrentProduct } = useContext(UserContext);
@@ -15,7 +14,7 @@ const AllProducts = () => {
   const { data: products = [], isLoading: productLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/products/top`);
+      const res = await fetch(` http://localhost:5000/products`);
       const data = await res.json();
       return data;
     },

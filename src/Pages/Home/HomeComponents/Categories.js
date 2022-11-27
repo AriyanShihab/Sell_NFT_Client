@@ -12,7 +12,7 @@ const Categories = () => {
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/only-categories`);
+      const res = await fetch(` https://sel-nft.vercel.app/only-categories`);
       const data = await res.json();
       return data;
     },
@@ -20,7 +20,7 @@ const Categories = () => {
   const { data: products = [], isLoading: productLoading } = useQuery({
     queryKey: ["products"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/products/top`);
+      const res = await fetch(` https://sel-nft.vercel.app/products/top`);
       const data = await res.json();
       return data;
     },

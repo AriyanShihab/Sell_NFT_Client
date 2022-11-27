@@ -33,7 +33,7 @@ const DashboardLayout = () => {
                 <li className="bg-transparent">
                   <NavLink
                     end
-                    to="dashboard/add-product"
+                    to="/dashboard/add-product"
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -43,23 +43,11 @@ const DashboardLayout = () => {
                     Add A Product
                   </NavLink>
                 </li>
-                {/* <li>
-                  <NavLink
-                    end
-                    to={"/dashboard"}
-                    style={({ isActive }) => {
-                      return {
-                        color: isActive ? "#06b6d4" : "#efefef",
-                      };
-                    }}
-                  >
-                    My Products
-                  </NavLink>
-                </li> */}
+
                 <li>
                   <NavLink
                     end
-                    to={"dashboard/my-products"}
+                    to={"/dashboard/my-products"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -72,7 +60,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     end
-                    to={"dashboard/my-orders"}
+                    to={"/dashboard/my-orders"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -89,7 +77,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     end
-                    to={"dashboard/my-orders"}
+                    to={"/dashboard/my-orders"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -107,7 +95,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     end
-                    to={"dashboard/reported-product"}
+                    to={"/dashboard/reported-product"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -120,7 +108,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     end
-                    to={"dashboard/all-seller"}
+                    to={"/dashboard/all-seller"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",
@@ -133,7 +121,7 @@ const DashboardLayout = () => {
                 <li>
                   <NavLink
                     end
-                    to={"dashboard/all-buyer"}
+                    to={"/dashboard/all-buyer"}
                     style={({ isActive }) => {
                       return {
                         color: isActive ? "#06b6d4" : "#efefef",

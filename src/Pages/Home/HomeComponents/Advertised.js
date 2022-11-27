@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import BookingModal from "../../../Components/BookingMoadal/BookingModal";
 import AdvertisedCard from "../../../Components/Cards/AdvertisedCards/AdvertisedCard";
 import Loading from "../../../Components/Loader/Loading";
@@ -9,7 +10,7 @@ const Advertised = () => {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["advertised"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/advertised`);
+      const res = await fetch(`http://localhost:5000/advertised/top`);
       const data = await res.json();
       return data;
     },
@@ -36,6 +37,11 @@ const Advertised = () => {
                   setCurrentProduct={setCurrentProduct}
                 ></AdvertisedCard>
               ))}
+          </div>
+          <div className="text-center mt-4">
+            <Link className="myBtn" to={"/all-adv"}>
+              All Promoted Products
+            </Link>
           </div>
         </div>
 

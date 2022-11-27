@@ -14,7 +14,7 @@ const MyOrders = () => {
     quryKey: ["bookings"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-orders/${user?.email}`,
+        ` https://sel-nft.vercel.app/my-orders/${user?.email}`,
         {
           headers: {
             authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,

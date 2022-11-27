@@ -46,7 +46,7 @@ const SignUp = () => {
                     role: data.signUpAs,
                     isVerified: false,
                   };
-                  fetch(`http://localhost:5000/users`, {
+                  fetch(` https://sel-nft.vercel.app/users`, {
                     method: "POST",
                     headers: {
                       "content-type": "application/json",
@@ -97,7 +97,7 @@ const SignUp = () => {
         };
         console.log(userForDB);
 
-        fetch(`http://localhost:5000/googleUsers`, {
+        fetch(` https://sel-nft.vercel.app/googleUsers`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -121,7 +121,7 @@ const SignUp = () => {
   };
 
   const getToken = (email) => {
-    fetch(`http://localhost:5000/jwt?email=${email}`)
+    fetch(` https://sel-nft.vercel.app/jwt?email=${email}`)
       .then((res) => res.json())
       .then((tokenData) => {
         if (tokenData.accessToken) {

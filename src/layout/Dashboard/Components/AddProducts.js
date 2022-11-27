@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import bg from "../../../Assets/bannerBG.webp";
+import SmallSpinner from "../../../Components/Loader/SmallSpinner";
 import { UserContext } from "../../../Context/Auth/AuthContext";
 
 const AddProducts = () => {
+  const [addProductLoading, setAddProductLoading] = useState(false);
   const { user } = useContext(UserContext);
   const {
     register,
@@ -20,7 +22,7 @@ const AddProducts = () => {
   const { data: categories = [], isLoading } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/only-categories`);
+      const res = await fetch(` https://sel-nft.vercel.app/only-categories`);
       const data = await res.json();
       return data;
     },
@@ -28,6 +30,7 @@ const AddProducts = () => {
   const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMG_BB_KEY}`;
 
   const handelAddProduct = (data) => {
+    setAddProductLoading(true);
     const formData = new FormData();
     const profilePicture = data.img[0];
     formData.append("image", profilePicture);
@@ -58,7 +61,7 @@ const AddProducts = () => {
             sellerverified: false,
           };
 
-          fetch(`http://localhost:5000/add-products`, {
+          fetch(` https://sel-nft.vercel.app/add-products`, {
             method: "POST",
             headers: {
               authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
@@ -70,7 +73,8 @@ const AddProducts = () => {
             .then((data) => {
               if (data.acknowledged) {
                 toast.success("Product Added");
-                navigate("/dashboard");
+                navigate("/dashboard/my-products");
+                setAddProductLoading(false);
               }
             });
         }
@@ -254,8 +258,11 @@ const AddProducts = () => {
               className="  ml-0 myBtn w-full cursor-pointer text-center"
               type="submit"
             >
-              Add Product
-              {/* {signupLoader ? <SmallSpinner></SmallSpinner> : "Sign Up"} */}
+              {addProductLoading ? (
+                <SmallSpinner></SmallSpinner>
+              ) : (
+                " Add Product"
+              )}
             </button>
           </div>
         </div>

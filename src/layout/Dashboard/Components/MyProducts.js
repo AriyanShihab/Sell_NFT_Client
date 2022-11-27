@@ -16,7 +16,7 @@ const MyProducts = () => {
     queryKey: ["myBookings"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/my-products?email=${user?.email}`,
+        ` https://sel-nft.vercel.app/my-products?email=${user?.email}`,
         {
           headers: {
             authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
@@ -33,7 +33,7 @@ const MyProducts = () => {
   }
 
   const handelAdvertised = (id) => {
-    fetch(`http://localhost:5000/makeAdvertised/${id}`, {
+    fetch(` https://sel-nft.vercel.app/makeAdvertised/${id}`, {
       method: "PUT",
     })
       .then((res) => res.json())
@@ -46,7 +46,7 @@ const MyProducts = () => {
   };
 
   const handelDelete = (id) => {
-    fetch(`http://localhost:5000/delete-product/${id}`, {
+    fetch(` https://sel-nft.vercel.app/delete-product/${id}`, {
       method: "DELETE",
       headers: {
         authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,

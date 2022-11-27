@@ -11,7 +11,7 @@ const ReportedProducts = () => {
   } = useQuery({
     queryKey: ["reportedItems"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/getReported`, {
+      const res = await fetch(` https://sel-nft.vercel.app/getReported`, {
         headers: {
           authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,
         },
@@ -21,7 +21,7 @@ const ReportedProducts = () => {
     },
   });
   const handelDelte = (id) => {
-    fetch(`http://localhost:5000/deleteReportedProduct/${id}`, {
+    fetch(` https://sel-nft.vercel.app/deleteReportedProduct/${id}`, {
       method: "DELETE",
       headers: {
         authtoken: `bearar ${localStorage.getItem("NFT_Token")}`,

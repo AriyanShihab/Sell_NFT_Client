@@ -5,7 +5,7 @@ const useRole = (email) => {
   const [roleLoading, setRoleLoading] = useState(true);
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/userRole/?email=${email}`)
+      fetch(` https://sel-nft.vercel.app/userRole/?email=${email}`)
         .then((res) => res.json())
         .then((data) => {
           setUserRole(data.role);

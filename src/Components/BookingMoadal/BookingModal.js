@@ -10,13 +10,13 @@ const BookingModal = ({ setCurrentProduct, product }) => {
   const handelBooking = (event) => {
     event.preventDefault();
     const productId = product._id;
-    fetch(`http://localhost:5000/product/${productId}`)
+    fetch(` https://sel-nft.vercel.app/product/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         const bookedProduct = data;
         bookedProduct.buyerEmail = user?.email;
         delete bookedProduct._id;
-        fetch(`http://localhost:5000/bookings`, {
+        fetch(` https://sel-nft.vercel.app/bookings`, {
           method: "POST",
           headers: {
             "content-type": "application/json",
