@@ -10,7 +10,7 @@ const Advertised = () => {
   const { data: products = [], isLoading } = useQuery({
     queryKey: ["advertised"],
     queryFn: async () => {
-      const res = await fetch(`http://localhost:5000/advertised/top`);
+      const res = await fetch(`https://sel-nft.vercel.app/advertised/top`);
       const data = await res.json();
       return data;
     },

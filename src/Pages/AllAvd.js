@@ -12,7 +12,7 @@ const AllAvd = () => {
   const [ldng, setldng] = useState(false);
   useEffect(() => {
     setProducts(true);
-    axios.get("http://localhost:5000/advertised").then((res) => {
+    axios.get("https://sel-nft.vercel.app/advertised").then((res) => {
       setProducts(res.data);
       setldng(false);
     });

@@ -38,7 +38,8 @@ https://sell-nft.web.app/
 - react quey (ten stack query)
 - react hook form
 - react icons
-  -prime icon
+- prime icon
+- date-fns
 - axiox
 - react toastify
 - ## for styling

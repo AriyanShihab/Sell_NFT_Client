@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import React, { useContext, useState } from "react";
 import { FaUserCheck } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -20,7 +21,12 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
     conditionType,
     sellerverified,
     reported,
+    location,
+    postTime,
   } = product;
+
+  // const time = format(postTime, "PP");
+  // console.log(time);
 
   const handelReport = () => {
     setReportLoading(true);
@@ -44,7 +50,7 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
   const converSellerVerified = "" + sellerverified;
   return (
     <div>
-      <div className=" h-[670px] rounded border border-indigo-300 border-opacity-25 flex flex-col justify-between text-slate-200">
+      <div className=" h-[700px] rounded border border-indigo-300 border-opacity-25 flex flex-col justify-between text-slate-200">
         <div className="relative">
           <img className="w-full h-[260px] rounded-t" src={img} alt="" />
           {!reported ? (
@@ -61,6 +67,11 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
               </h2>
             </>
           )}
+          {
+            <span className="absolute top-2 right-1 p-1 rounded bg-green-500 text-slate-900 text-bold text-sm cursor-pointer text-center">
+              {location}
+            </span>
+          }
         </div>
         <div className="p-3">
           <h3 className="text-xl my-2 font-bold text-cyan-500">{name}</h3>
@@ -98,6 +109,9 @@ const AdvertisedCard = ({ product, setCurrentProduct, setisModalClose }) => {
               </Link>
             </>
           )}
+          <p className="text-sm text-center mt-4">
+            Post Time: {format(postTime, "PP")}
+          </p>
         </div>
       </div>
     </div>
