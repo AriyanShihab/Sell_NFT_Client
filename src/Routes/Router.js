@@ -61,6 +61,7 @@ const router = createBrowserRouter([
         ),
       },
     ],
+    errorElement: <NotFound></NotFound>,
   },
   {
     path: "/dashboard",
@@ -119,6 +120,7 @@ const router = createBrowserRouter([
         ),
       },
     ],
+    errorElement: <NotFound></NotFound>,
   },
   {
     path: "*",
