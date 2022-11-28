@@ -5,20 +5,21 @@ import AllBuyer from "../layout/Dashboard/Components/AllBuyer";
 import AllSeller from "../layout/Dashboard/Components/AllSeller";
 import MyOrders from "../layout/Dashboard/Components/MyOrders";
 import MyProducts from "../layout/Dashboard/Components/MyProducts";
+import Payment from "../layout/Dashboard/Components/Payment";
 import ReportedProducts from "../layout/Dashboard/Components/ReportedProducts";
 import DashboardLayout from "../layout/Dashboard/DashboardLayout";
 import Main from "../layout/Main";
 import AllAvd from "../Pages/AllAvd";
 import AllProducts from "../Pages/AllProducts/AllProducts";
+import Blog from "../Pages/Blog/Bolg";
 import Category from "../Pages/Category/Category";
 import Home from "../Pages/Home/Home";
 import Login from "../Pages/Login/Login";
+import NotFound from "../Pages/NotFound/NotFound";
 import SignUp from "../Pages/SignUp/SignUp";
 import AdminRoute from "./AdminRoute";
 import PrivateRoute from "./PrivateRoute";
 import SellerRoute from "./SellerRoute";
-import Blog from "../Pages/Blog/Bolg";
-import NotFound from "../Pages/NotFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,12 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/my-orders",
         element: <MyOrders></MyOrders>,
+      },
+      {
+        path: "/dashboard/payment/:id",
+        element: <Payment></Payment>,
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/bookings/${params.id}`),
       },
       {
         path: "/dashboard/my-products",

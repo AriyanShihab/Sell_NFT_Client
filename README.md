@@ -1,5 +1,7 @@
 # [Sell NFT](https://sell-nft.web.app/)
 
+adminEmail:admin@mail.com
+adminPassword:123456
 an nft resalling marketplace model web platform
 ![My Remote Image](./src/Assets/sell.png)
 

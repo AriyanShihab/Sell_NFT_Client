@@ -72,12 +72,14 @@ const MyOrders = () => {
               <td>{product.sellingPrice}</td>
 
               <td>
-                <button
-                  // onClick={() => handelDelte(product._id)}
-                  className="btn btn-sm btn-warning"
-                >
-                  Pay
-                </button>
+                <Link to={`/dashboard/payment/${product._id}`}>
+                  <button
+                    // onClick={() => handelDelte(product._id)}
+                    className="btn btn-sm btn-warning"
+                  >
+                    Pay
+                  </button>
+                </Link>
               </td>
             </tr>
           ))}
