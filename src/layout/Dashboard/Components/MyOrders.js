@@ -32,7 +32,7 @@ const MyOrders = () => {
   if (myOrders?.length < 1) {
     return (
       <>
-        <h2 className="text-xl text-cyan-500">
+        <h2 className="text-2xl text-cyan-500 font-bold">
           Hello {user?.displayName}, currently you have no order, <br></br>{" "}
           please book something from the{" "}
           <Link className="text-green-500" to={"/"}>
@@ -42,6 +42,7 @@ const MyOrders = () => {
       </>
     );
   }
+  console.log(myOrders);
 
   return (
     <div className=" mx-3">
